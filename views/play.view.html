@@ -1,20 +1,20 @@
 ﻿<div class="container">
  
     <div class="score">
-  	    <b>{{teamData.to_bat}}: {{getStats.total_run}}/{{getStats.wicket}}</b><br>
-  	    <label>Overs:{{getStats.over}}.{{getStats.ball}}</label><br>
+  	    <b>{{vm.teamData.to_bat}}: {{vm.getStats.total_run}}/{{vm.getStats.wicket}}</b><br>
+  	    <label>Overs:{{vm.getStats.over}}.{{vm.getStats.ball}}</label><br>
   	    <label>Bowling:</label>
-  	    <b>{{teamData.to_bowl}}</b>
+  	    <b>{{vm.teamData.to_bowl}}</b>
     </div>
 
     <div>
-        <a ng-hide="gameData[gameData.length-1].over == 2" 
-           href="#/play/{{gameData[gameData.length-1].over}}/{{gameData[gameData.length-1].ball}}"
-           class="btn btn-primary" ng-click="bowl()">
+        <a ng-hide="vm.gameData[gameData.length-1].over == 2" 
+           href="#/play/{{vm.gameData[vm.gameData.length-1].over}}/{{vm.gameData[vm.gameData.length-1].ball}}"
+           class="btn btn-primary" ng-click="vm.bowl()">
            Bowl
         </a>
-        <a ng-if="gameData[gameData.length-1].over == 2" class="btn btn-danger" href="#/start" ng-click="resetData()" >Finish</a>
-        <a class="btn btn-warning" href="#/play/{{gameData[gameData.length-1].over}}/{{gameData[gameData.length-1].ball}}">Full Scorecard</a>
+        <a ng-if="vm.gameData[gameData.length-1].over == 2" class="btn btn-danger" href="#/start" ng-click="resetData()" >Finish</a>
+        <a class="btn btn-warning" href="#/play/{{vm.gameData[vm.gameData.length-1].over}}/{{vm.gameData[vm.gameData.length-1].ball}}">Full Scorecard</a>
     </div>        
    <table class="table table-striped">
         <thead>
@@ -26,8 +26,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in gameData | limitTo: getStats.indexOfScore+1">
-                <td><a href="#/play/{{item.over}}/{{item.ball}}" ng-click="sendIndex(item)">{{item.over}}.{{item.ball}}</a></td>
+            <tr ng-repeat="item in vm.gameData | limitTo: vm.getStats.indexOfScore+1">
+                <td><a href="#/play/{{item.over}}/{{item.ball}}" ng-click="vm.sendIndex(item)">{{item.over}}.{{item.ball}}</a></td>
                 <td>{{item.run_per_ball}}</td>
                 <td>{{item.score}}</td>
                 <td>{{item.comments}}</td>
