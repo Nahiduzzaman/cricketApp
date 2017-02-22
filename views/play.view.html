@@ -1,0 +1,37 @@
+﻿<div class="container">
+ 
+    <div class="score">
+  	    <b>{{teamData.to_bat}}: {{getStats.total_run}}/{{getStats.wicket}}</b><br>
+  	    <label>Overs:{{getStats.over}}.{{getStats.ball}}</label><br>
+  	    <label>Bowling:</label>
+  	    <b>{{teamData.to_bowl}}</b>
+    </div>
+
+    <div>
+        <a ng-hide="gameData[gameData.length-1].over == 2" 
+           href="#/play/{{gameData[gameData.length-1].over}}/{{gameData[gameData.length-1].ball}}"
+           class="btn btn-primary" ng-click="bowl()">
+           Bowl
+        </a>
+        <a ng-if="gameData[gameData.length-1].over == 2" class="btn btn-danger" href="#/start" ng-click="resetData()" >Finish</a>
+        <a class="btn btn-warning" href="#/play/{{gameData[gameData.length-1].over}}/{{gameData[gameData.length-1].ball}}">Full Scorecard</a>
+    </div>        
+   <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Overs</th>
+                <th>Run per Ball</th>
+                <th>Scenario</th>
+                <th>Live! Ball by ball Commentary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in gameData | limitTo: getStats.indexOfScore+1">
+                <td><a href="#/play/{{item.over}}/{{item.ball}}" ng-click="sendIndex(item)">{{item.over}}.{{item.ball}}</a></td>
+                <td>{{item.run_per_ball}}</td>
+                <td>{{item.score}}</td>
+                <td>{{item.comments}}</td>
+            </tr>     
+        </tbody>
+  </table>
+</div>
