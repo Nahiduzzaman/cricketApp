@@ -84,6 +84,7 @@ body {
 
 .sidebyside{
   display: inline-block;
+  width: 100%;
 }
 
 form { margin: 0 auto; width: 36% }

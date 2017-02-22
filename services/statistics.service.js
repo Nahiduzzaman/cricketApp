@@ -4,9 +4,24 @@
 	angular.module('cricketApp')
 		.service('StatisticService', constructor);
 		    constructor.$inject = ['$filter'];
-		    function constructor($filter) {
-		    	var matches = [];
+		    function constructor($filter,$window) {
+
+		    	if(JSON.parse(localStorage.getItem("matchData")) == null){
+		    		var matches = [];
+		    	}else{
+		    		var matches = JSON.parse(localStorage.getItem("gameData"));
+		    	}
 		        var scoreArray = [0,1,2,3,4,6,'W','WD','NB'];
+		        var gameData = {
+		        	match_id: null,
+		            ball: null,
+		            over: null,
+		            score: null,
+		            run_per_ball: null,
+		            total_run: null,
+		            wicket: null
+		        };
+
 		        if(JSON.parse(localStorage.getItem("gameData")) == null){
 		            var statistics = [];
 		            var number_of_ball = 0;
@@ -16,6 +31,7 @@
 		            var score = 0;
 		            var over = 0;
 		            var comments = '';
+		            var match_id = 0;
 		        }
 		        else{
 		            var statistics = JSON.parse(localStorage.getItem("gameData"));
@@ -26,16 +42,8 @@
 		            var score = statistics[statistics.length-1].score;
 		            var over = statistics[statistics.length-1].over;
 		            var comments = statistics[statistics.length-1].comments;
+		            var match_id = statistics[statistics.length-1].match_id;
 		        }
-
-		        var gameData = {
-		            ball: null,
-		            over: null,
-		            score: null,
-		            run_per_ball: null,
-		            total_run: null,
-		            wicket: null
-		        };
 
 		        function allcomments(score){
 		            switch (score) {
@@ -74,6 +82,10 @@
 
 
 		        return {
+		        	setMatch_id: function(){
+		            	match_id++;
+		            },
+
 		            play: function(){
 		                number_of_ball++;
 		             
@@ -109,6 +121,7 @@
 		                //console.log('final','Overs: '+over+'.'+number_of_ball,'Score: '+score, 'RPB: '+run, 'Total: '+total_run,'Wicket:'+wicket, 'Comments:'+comments );
 		                //console.log(number_of_ball)
 		                gameData = {
+		                	match_id: match_id,
 		                    ball: number_of_ball<0 ? 5:number_of_ball,
 		                    over: number_of_ball<0 ? ((over-1)<1 ? 0:(over-1)):over,
 		                    score: score,
@@ -137,13 +150,28 @@
 		                   console.log('scoresbyball',scoresbyball[scoresbyball.length-1]);
 		                   return scoresbyball[scoresbyball.length-1];
 		                }
-		            }
+		            },
 
-		            /*newgame: function(){
+		            newgame: function(){
 		                var teamData_for_match = JSON.parse(localStorage.getItem("teamData"));
 		                var gameData_for_match = JSON.parse(localStorage.getItem("gameData"));
+		                var matchData = {
+		                	teamData:teamData_for_match,
+		                	gameData: gameData_for_match
+		                }
+
+		                matches.push(matchData);
+		                console.log('matches',matches);
+		                return matches;
 		                
-		            }*/
+		            },
+
+		            reset: function(){
+		            	localStorage.removeItem("gameData");
+		                localStorage.removeItem("teamData");
+		                $window.location.reload();
+
+		            }
 		        } 
 		    }
 
