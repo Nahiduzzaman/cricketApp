@@ -6,13 +6,14 @@
 	    	constructor.$inject = ['StatisticService','$scope'];
 	    	function constructor(StatisticService,$scope) {
 	    		var vm = this;
-	        	$scope.game = {
+	    		vm.x = 'hello';
+	        	vm.game = {
 		     		country1: 'Bangladesh',
 		     		country2: 'India',     		
 		     		to_bowl: null
 		     	};
 
-		     	$scope.setGame = function(game){
+		     	vm.setGame = function(game){
 		     		if(game.to_bowl == game.country1){
 				  		game.to_bat = game.country2;
 				  	}else{

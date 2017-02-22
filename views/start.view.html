@@ -1,17 +1,15 @@
 ﻿<div class="container"> 
-    
+    {{vm.x}}
     <form>
-        {{vm.x}}
         <label>Country1:</label>
-        
         <div class="sidebyside">
-          <input placeholder="country1" ng-model="game.country1" type="text" class="form-control" id="country1">
+          <input placeholder="country1" ng-model="vm.game.country1" type="text" class="form-control" id="country1">
         </div>
 
         <div class="sidebyside">
           <div class="radio">
             <label class="radio-inline control-label">
-              <input type="radio" ng-model="game.to_bowl" name="to_bowl" id="a" ng-value="game.country1" required>
+              <input type="radio" ng-model="vm.game.to_bowl" name="to_bowl" id="a" ng-value="vm.game.country1" required>
             </label>
           </div>
         </div>
@@ -21,19 +19,19 @@
         <label>Country2:</label>
         
         <div class="sidebyside">
-          <input placeholder="country2" ng-model="game.country2" type="text" class="form-control" id="country2">
+          <input placeholder="country2" ng-model="vm.game.country2" type="text" class="form-control" id="country2">
         </div>
 
         <div class="sidebyside">
           <div class="radio">
             <label class="radio-inline control-label">
-              <input type="radio" ng-model="game.to_bowl" name="to_bowl" id="b" ng-value="game.country2" required>
+              <input type="radio" ng-model="vm.game.to_bowl" name="to_bowl" id="b" ng-value="vm.game.country2" required>
             </label>
           </div>
         </div>
 
         <div>
-          <a href="#/play/0/0" class="btn btn-info" ng-click="setGame(game)">Play</a>
+          <a href="#/play/0/0" class="btn btn-info" ng-click="vm.setGame(vm.game)">Play</a>
         </div>
     </form>
 
