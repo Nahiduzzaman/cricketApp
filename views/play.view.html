@@ -8,13 +8,13 @@
     </div>
 
     <div>
-        <a ng-hide="vm.gameData[vm.gameData.length-1].over == 2" 
-           href="#/play/{{vm.gameData[vm.gameData.length-1].over}}/{{vm.gameData[vm.gameData.length-1].ball}}"
+        <a ng-hide="vm.gameData[vm.gameData.length-1].over == 1" 
+           href="#/play/{{vm.match_id}}/{{vm.gameData[vm.gameData.length-1].over}}/{{vm.gameData[vm.gameData.length-1].ball}}"
            class="btn btn-primary" ng-click="vm.bowl()">
            Bowl
         </a>
-        <a ng-if="vm.gameData[vm.gameData.length-1].over == 2" class="btn btn-danger" href="#/start" ng-click="vm.resetData()" >Finish</a>
-        <a ng-if="vm.gameData[vm.gameData.length-1].over == 2" class="btn btn-danger" href="#/start" ng-click="vm.newGame()" >New Game</a>
+        <a ng-if="vm.gameData[vm.gameData.length-1].over == 1" class="btn btn-danger" href="#/start" ng-click="vm.resetData()" >Finish</a>
+        <a ng-if="vm.gameData[vm.gameData.length-1].over == 1" class="btn btn-danger" href="#/start" ng-click="vm.newGame()" >New Game</a>
         <a class="btn btn-warning" href="#/play/{{vm.gameData[vm.gameData.length-1].over}}/{{vm.gameData[vm.gameData.length-1].ball}}">Full Scorecard</a>
     </div>        
    <table class="table table-striped">

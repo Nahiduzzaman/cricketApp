@@ -8,9 +8,15 @@
 
 		    	if(JSON.parse(localStorage.getItem("matchData")) == null){
 		    		var matches = [];
+				    var match_id = 0;
 		    	}else{
-		    		var matches = JSON.parse(localStorage.getItem("gameData"));
+		    		var matches = JSON.parse(localStorage.getItem("matchData"));
+		    		console.log('matches',matches);
+		    		var lastGameData = matches[matches.length-1].gameData;
+		    		console.log('lastGameData',lastGameData);
+		    		var match_id = lastGameData[lastGameData.length-1].match_id;
 		    	}
+
 		        var scoreArray = [0,1,2,3,4,6,'W','WD','NB'];
 		        var gameData = {
 		        	match_id: null,
@@ -31,7 +37,6 @@
 		            var score = 0;
 		            var over = 0;
 		            var comments = '';
-		            var match_id = 0;
 		        }
 		        else{
 		            var statistics = JSON.parse(localStorage.getItem("gameData"));
@@ -42,7 +47,6 @@
 		            var score = statistics[statistics.length-1].score;
 		            var over = statistics[statistics.length-1].over;
 		            var comments = statistics[statistics.length-1].comments;
-		            var match_id = statistics[statistics.length-1].match_id;
 		        }
 
 		        function allcomments(score){
@@ -83,7 +87,21 @@
 
 		        return {
 		        	setMatch_id: function(){
-		            	match_id++;
+				    	match_id++;
+		            	console.log('match_id',match_id);
+		            },
+
+		            newgame: function(){
+		            	console.log(matches);
+		                var teamData_for_match = JSON.parse(localStorage.getItem("teamData"));
+		                var gameData_for_match = JSON.parse(localStorage.getItem("gameData"));
+		                var matchData = {
+		                	teamData:teamData_for_match,
+		                	gameData: gameData_for_match
+		                }
+		                matches.push(matchData);
+		                console.log('matches',matches);
+		                return matches;		                
 		            },
 
 		            play: function(){
@@ -135,12 +153,14 @@
 		                return statistics;
 		            },
 
-		            get: function(ball,over,data) {
+		            get: function(match,ball,over,data) {
+		                console.log('match',match);
 		                //console.log('ball',ball);
 		                //console.log('over',over);
-		                //console.log('data',data);
+		                console.log('data',data);
 		                if(data){
-		                    var scoresbyball = $filter('filter')(data, {'ball':ball,'over':over});
+		                	console.log('data',data);
+		                    var scoresbyball = $filter('filter')(data, {'match_id':match,'ball':ball,'over':over});
 		                    console.log('scoresbyballArray',scoresbyball);
 		                    //var indexOfScore = data.indexOf(scoresbyball[scoresbyball.length-1]);
 		                    scoresbyball.forEach(function(item){
@@ -150,27 +170,6 @@
 		                   console.log('scoresbyball',scoresbyball[scoresbyball.length-1]);
 		                   return scoresbyball[scoresbyball.length-1];
 		                }
-		            },
-
-		            newgame: function(){
-		                var teamData_for_match = JSON.parse(localStorage.getItem("teamData"));
-		                var gameData_for_match = JSON.parse(localStorage.getItem("gameData"));
-		                var matchData = {
-		                	teamData:teamData_for_match,
-		                	gameData: gameData_for_match
-		                }
-
-		                matches.push(matchData);
-		                console.log('matches',matches);
-		                return matches;
-		                
-		            },
-
-		            reset: function(){
-		            	localStorage.removeItem("gameData");
-		                localStorage.removeItem("teamData");
-		                $window.location.reload();
-
 		            }
 		        } 
 		    }

@@ -12,7 +12,7 @@
                         controllerAs: 'vm'
                     })
                     .state('play-history', {
-                        url: '/play/:over/:ball',
+                        url: '/play/:match/:over/:ball',
                         templateUrl: 'views/play.view.html',
                         controller: 'playController',
                         controllerAs: 'vm'
